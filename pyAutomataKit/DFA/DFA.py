@@ -62,11 +62,11 @@ class DFA:
     
     def transition(self, symbol):
         self.current_state = self.transitions[self.current_state][symbol]
-        return self.transitions[symbol]
+        return self.current_state
 
-    def execute(self, str):
+    def execute(self, inStr):
         self.reset()
-        self.execution_history.append({'state': self.current_state, 'next_symbol': str[0]})
-        for i in range(0, str):
-            self.execution_history.append({'state': self.transition(str[i]), 'next_symbol': str[i+1] if i+1 < len(str) else None})
+        self.execution_history.append({'state': self.current_state, 'next_symbol':inStr[0]})
+        for i in range(0, len(inStr)):
+            self.execution_history.append({'state': self.transition(inStr[i]), 'next_symbol':inStr[i+1] if i+1 < len(inStr) else None})
         return (self.in_accepting_state(), self.execution_history)

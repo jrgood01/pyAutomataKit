@@ -20,6 +20,9 @@ class NFA:
         self.current_states = []
         self.history = []
 
+    def in_accepting_state(self):
+        return any(state in self.accepting_states for state in self.current_states)
+    
     def transition(self, symbol):
         next_states = []
         for state in self.current_states:
@@ -37,4 +40,4 @@ class NFA:
             symbol = inStr[i]
             self.current_states = self.transition(symbol)
             self.history.append({'current_states': self.current_states, 'next_symbol': inStr[i + 1] if i < len(inStr) - 1 else 'None'})
-        return self.in_accepting_state(), self.execution_history
+        return self.in_accepting_state(), self.history
